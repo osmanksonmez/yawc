@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock Gadget</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Window Controls -->
+        <div class="window-controls">
+            <div class="control-group">
+                <button class="control-btn minimize" onclick="minimizeWindow()" title="Minimize">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <line x1="2" y1="6" x2="10" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="control-btn close" onclick="closeWindow()" title="Close">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h1 class="app-title">TimeZone</h1>
+                </div>
+                <div class="header-actions">
+                    <!-- Settings button moved to bottom right -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- View switcher moved to settings modal -->
+            
+            <!-- Clock Grid -->
+            <div class="clocks-container">
+                <div class="clock-grid" id="clockGrid">
+                    <!-- Digital clocks will be added here by JavaScript -->
+                </div>
+                
+                <div class="analog-clock-grid" id="analogClockGrid" style="display: none;">
+                    <!-- Analog clocks will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Add Clock Button -->
+            <div class="add-clock-container">
+                <button class="add-clock-btn" onclick="showAddClockModal()">
+                    <div class="add-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20">
+                            <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="add-text">Add New Clock</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Clock Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="hideAddClockModal()">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <div class="modal-icon">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Add New Clock</h3>
+                    </div>
+                    <button class="modal-close" onclick="hideAddClockModal()" title="Close">
+                        <svg width="16" height="16" viewBox="0 0 16 16">
+                            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-field">
+                        <label for="cityName" class="field-label">City Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="cityName" class="field-input" placeholder="Enter city name" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="timezone" class="field-label">Timezone</label>
+                        <div class="select-wrapper">
+                            <select id="timezone" class="field-select">
+                        <!-- Africa -->
+                        <optgroup label="Africa">
+                            <option value="Africa/Abidjan">Abidjan (GMT)</option>
+                            <option value="Africa/Accra">Accra (GMT)</option>
+                            <option value="Africa/Addis_Ababa">Addis Ababa (EAT)</option>
+                            <option value="Africa/Algiers">Algiers (CET)</option>
+                            <option value="Africa/Cairo">Cairo (EET)</option>
+                            <option value="Africa/Casablanca">Casablanca (WET)</option>
+                            <option value="Africa/Johannesburg">Johannesburg (SAST)</option>
+                            <option value="Africa/Lagos">Lagos (WAT)</option>
+                            <option value="Africa/Nairobi">Nairobi (EAT)</option>
+                            <option value="Africa/Tunis">Tunis (CET)</option>
+                        </optgroup>
+                        
+                        <!-- America -->
+                        <optgroup label="North America">
+                            <option value="America/Anchorage">Anchorage (AKST/AKDT)</option>
+                            <option value="America/Chicago">Chicago (CST/CDT)</option>
+                            <option value="America/Denver">Denver (MST/MDT)</option>
+                            <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                            <option value="America/New_York">New York (EST/EDT)</option>
+                            <option value="America/Phoenix">Phoenix (MST)</option>
+                            <option value="America/Toronto">Toronto (EST/EDT)</option>
+                            <option value="America/Vancouver">Vancouver (PST/PDT)</option>
+                        </optgroup>
+                        
+                        <optgroup label="Central America">
+                            <option value="America/Guatemala">Guatemala (CST)</option>
+                            <option value="America/Mexico_City">Mexico City (CST/CDT)</option>
+                            <option value="America/Panama">Panama (EST)</option>
+                        </optgroup>
+                        
+                        <optgroup label="South America">
+                            <option value="America/Argentina/Buenos_Aires">Buenos Aires (ART)</option>
+                            <option value="America/Bogota">Bogotá (COT)</option>
+                            <option value="America/Caracas">Caracas (VET)</option>
+                            <option value="America/Lima">Lima (PET)</option>
+                            <option value="America/Santiago">Santiago (CLT/CLST)</option>
+                            <option value="America/Sao_Paulo">São Paulo (BRT/BRST)</option>
+                        </optgroup>
+                        
+                        <!-- Asia -->
+                        <optgroup label="Asia">
+                            <option value="Asia/Bangkok">Bangkok (ICT)</option>
+                            <option value="Asia/Beijing">Beijing (CST)</option>
+                            <option value="Asia/Calcutta">Kolkata (IST)</option>
+                            <option value="Asia/Dubai">Dubai (GST)</option>
+                            <option value="Asia/Hong_Kong">Hong Kong (HKT)</option>
+                            <option value="Asia/Jakarta">Jakarta (WIB)</option>
+                            <option value="Asia/Jerusalem">Jerusalem (IST/IDT)</option>
+                            <option value="Asia/Karachi">Karachi (PKT)</option>
+                            <option value="Asia/Kuala_Lumpur">Kuala Lumpur (MYT)</option>
+                            <option value="Asia/Manila">Manila (PHT)</option>
+                            <option value="Asia/Riyadh">Riyadh (AST)</option>
+                            <option value="Asia/Seoul">Seoul (KST)</option>
+                            <option value="Asia/Shanghai">Shanghai (CST)</option>
+                            <option value="Asia/Singapore">Singapore (SGT)</option>
+                            <option value="Asia/Taipei">Taipei (CST)</option>
+                            <option value="Asia/Tehran">Tehran (IRST/IRDT)</option>
+                            <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        </optgroup>
+                        
+                        <!-- Europe -->
+                        <optgroup label="Europe">
+                            <option value="Europe/Amsterdam">Amsterdam (CET/CEST)</option>
+                            <option value="Europe/Athens">Athens (EET/EEST)</option>
+                            <option value="Europe/Berlin">Berlin (CET/CEST)</option>
+                            <option value="Europe/Brussels">Brussels (CET/CEST)</option>
+                            <option value="Europe/Budapest">Budapest (CET/CEST)</option>
+                            <option value="Europe/Dublin">Dublin (GMT/IST)</option>
+                            <option value="Europe/Helsinki">Helsinki (EET/EEST)</option>
+                            <option value="Europe/Istanbul">Istanbul (TRT)</option>
+                            <option value="Europe/London">London (GMT/BST)</option>
+                            <option value="Europe/Madrid">Madrid (CET/CEST)</option>
+                            <option value="Europe/Moscow">Moscow (MSK)</option>
+                            <option value="Europe/Paris">Paris (CET/CEST)</option>
+                            <option value="Europe/Prague">Prague (CET/CEST)</option>
+                            <option value="Europe/Rome">Rome (CET/CEST)</option>
+                            <option value="Europe/Stockholm">Stockholm (CET/CEST)</option>
+                            <option value="Europe/Vienna">Vienna (CET/CEST)</option>
+                            <option value="Europe/Warsaw">Warsaw (CET/CEST)</option>
+                            <option value="Europe/Zurich">Zurich (CET/CEST)</option>
+                        </optgroup>
+                        
+                        <!-- Oceania -->
+                        <optgroup label="Oceania">
+                            <option value="Australia/Adelaide">Adelaide (ACST/ACDT)</option>
+                            <option value="Australia/Brisbane">Brisbane (AEST)</option>
+                            <option value="Australia/Melbourne">Melbourne (AEST/AEDT)</option>
+                            <option value="Australia/Perth">Perth (AWST)</option>
+                            <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                            <option value="Pacific/Auckland">Auckland (NZST/NZDT)</option>
+                            <option value="Pacific/Fiji">Fiji (FJT/FJST)</option>
+                            <option value="Pacific/Honolulu">Honolulu (HST)</option>
+                        </optgroup>
+                    </select>
+                            <div class="select-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="hideAddClockModal()">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="addNewClock()">
+                        <div class="btn-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16">
+                                <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Add Clock</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="close-btn" id="closeSettingsModal">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M12.854 4.854a.5.5 0 0 0-.708-.708L8 8.293 3.854 4.146a.5.5 0 1 0-.708.708L7.293 9l-4.147 4.146a.5.5 0 0 0 .708.708L8 9.707l4.146 4.147a.5.5 0 0 0 .708-.708L8.707 9l4.147-4.146z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>Display</h4>
+                    <div class="setting-item">
+                        <label>Clock View</label>
+                        <div class="view-switcher">
+                            <button id="digitalViewSettings" class="view-btn active" data-view="digital" title="Digital View">
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <rect x="2" y="4" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M5 7h1v2H5zM7.5 7h1v2h-1zM10 7h1v2h-1z" fill="currentColor"/>
+                                </svg>
+                                <span>Digital</span>
+                            </button>
+                            <button id="analogViewSettings" class="view-btn" data-view="analog" title="Analog View">
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                <span>Analog</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label for="darkModeToggle">Dark Mode</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="darkModeToggle" class="toggle-input">
+                            <label for="darkModeToggle" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Settings Button -->
+    <button id="settingsBtn" class="settings-btn-floating" title="Settings">
+        <svg width="20" height="20" viewBox="0 0 16 16">
+            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" fill="currentColor"/>
+            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

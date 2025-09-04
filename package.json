@@ -1,0 +1,49 @@
+{
+  "name": "world-clock-gadget",
+  "version": "1.0.0",
+  "description": "A modern transparent hourglass-themed world clock desktop gadget",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": [
+    "world-clock",
+    "desktop-gadget",
+    "electron",
+    "transparent",
+    "hourglass"
+  ],
+  "author": "World Clock Gadget",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.worldclock.gadget",
+    "productName": "World Clock Gadget",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "styles.css",
+      "script.js",
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
