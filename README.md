@@ -142,6 +142,15 @@ While designed for desktop, the gadget is responsive and works on:
 - **Mobile browsers** with adjusted layout
 - **Touch devices** with tap interactions
 
+## 🤖 Development Credits
+
+This application was developed using:
+- **[Trae IDE](https://trae.ai)** - The world's best AI-powered IDE for rapid development
+- **Claude 4 Sonnet** - Advanced AI model for code generation and architecture design
+- **Agentic AI Assistant** - Intelligent coding companion for feature implementation
+
+The entire codebase, from UI design to functionality implementation, was created through AI-assisted development in Trae IDE, showcasing the power of modern AI tools in software development.
+
 ---
 
 **Enjoy your modern world clock desktop gadget!** ⏰✨

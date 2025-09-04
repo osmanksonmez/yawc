@@ -7,7 +7,8 @@
     "start": "electron .",
     "dev": "electron . --dev",
     "build": "electron-builder",
-    "dist": "electron-builder --publish=never"
+    "dist": "electron-builder --publish=never",
+    "pack": "electron-packager . world-clock-gadget --platform=win32 --arch=x64 --out=dist --overwrite"
   },
   "keywords": [
     "world-clock",
@@ -20,7 +21,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^27.0.0",
-    "electron-builder": "^24.6.4"
+    "electron-builder": "^24.6.4",
+    "electron-packager": "^17.1.2"
   },
   "build": {
     "appId": "com.worldclock.gadget",
@@ -36,7 +38,7 @@
       "package.json"
     ],
     "win": {
-      "target": "nsis",
+      "target": "portable",
       "icon": "icon.png"
     },
     "nsis": {
